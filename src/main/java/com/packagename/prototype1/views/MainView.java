@@ -7,6 +7,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -29,6 +30,8 @@ public class MainView extends VerticalLayout {
     @Autowired
     public MainView( DataService dataService)
     {
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setAlignItems(Alignment.CENTER);
 
         this.dataService = dataService;
 
@@ -41,6 +44,9 @@ public class MainView extends VerticalLayout {
             int code = Integer.valueOf(codeField.getValue());
             DataModel new_data = new DataModel(id, name, code);
             dataService.save(new_data);
+            Notification notification = new Notification();
+            notification.show("Submitted Successfully!", 2000, Notification.Position.TOP_CENTER);
+            add(notification);
         });
 
 

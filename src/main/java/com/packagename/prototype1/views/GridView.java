@@ -20,9 +20,10 @@ import java.util.List;
 public class GridView extends VerticalLayout {
     private Grid<DataModel> dataModelGrid = new Grid<>(DataModel.class);
     private DataService dataService;
-    private Button submitButton = new Button("Submit");
+    private Button submitButton = new Button("Search");
     private TextField codeField = new TextField("Code : ");
     private Anchor giveLink = new Anchor("","Give Attendance");
+
     private int searchCode = 0;
 
     @Autowired

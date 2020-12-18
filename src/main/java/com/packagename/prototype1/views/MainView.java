@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 @Route("")
 public class MainView extends VerticalLayout {
-    private static UI currentUI = UI.getCurrent();
 
     private Button giveAttendanceButton = new Button("Give Attendance");
     private Button createAttendanceSessionButton = new Button("Create Attendance Session");
@@ -25,21 +24,21 @@ public class MainView extends VerticalLayout {
 
         giveAttendanceButton.addClickListener(c ->
                 {
-                        currentUI.navigate("give");
+                    UI.getCurrent().navigate("give");
                 }
         );
         giveAttendanceButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         createAttendanceSessionButton.addClickListener(c ->
                 {
-                    currentUI.navigate("createsession");
+                    UI.getCurrent().navigate("createsession");
                 }
         );
         createAttendanceSessionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         manageAttendanceSessionButton.addClickListener(c ->
                 {
-                    currentUI.navigate("sessions");
+                    UI.getCurrent().navigate("sessions");
                 }
         );
         manageAttendanceSessionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -47,8 +46,8 @@ public class MainView extends VerticalLayout {
         logoutButton.addClickListener(c ->
                 {
                     SecurityContextHolder.clearContext();
-                    currentUI.getSession().close();
-                    currentUI.navigate("login");
+                    UI.getCurrent().getSession().close();
+                    UI.getCurrent().navigate("login");
                 }
         );
         logoutButton.addThemeVariants(ButtonVariant.LUMO_ERROR);

@@ -1,15 +1,17 @@
-package com.packagename.prototype1.security;
+package com.packagename.prototype1.backend.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
@@ -20,6 +22,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_SUCCESS_URL = "/login";
 
+    @Autowired
+    DataSource dataSource;
+    @Autowired
+    UserDetailsService userDetailsService;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
     /**
      * Require login to access internal pages and configure login form.
      */
@@ -34,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 // Restrict access to our application.
                 .and().authorizeRequests()
-
+                .antMatchers("/register").permitAll()
                 // Allow all Vaadin internal requests.
                 .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
 
@@ -50,9 +58,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Configure logout
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
     }
-
-    @Bean
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+    }
+
+
+/* Bean
+    Override
     public UserDetailsService userDetailsService() {
         UserDetails user =
                 User.withUsername("user")
@@ -61,7 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .build();
 
         return new InMemoryUserDetailsManager(user);
-    }
+    }*/
 
     /**
      * Allows access to static resources, bypassing Spring security.
@@ -90,5 +103,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 // (development mode) H2 debugging console
                 "/h2-console/**");
+    }
+
+    @Bean
+    public BCryptPasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder(10);
     }
 }

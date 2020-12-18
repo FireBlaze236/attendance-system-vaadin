@@ -1,4 +1,4 @@
-package com.packagename.prototype1.security;
+package com.packagename.prototype1.backend.security;
 
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 

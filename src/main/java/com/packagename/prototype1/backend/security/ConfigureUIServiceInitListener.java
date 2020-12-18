@@ -1,6 +1,7 @@
-package com.packagename.prototype1.security;
+package com.packagename.prototype1.backend.security;
 
 import com.packagename.prototype1.views.LoginView;
+import com.packagename.prototype1.views.RegisterView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.server.ServiceInitEvent;
@@ -25,8 +26,11 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
      *            before navigation event with event details
      */
     private void beforeEnter(BeforeEnterEvent event) {
-        if (!LoginView.class.equals(event.getNavigationTarget())
-                && !SecurityUtils.isUserLoggedIn()) {
+        if(RegisterView.class.equals(event.getNavigationTarget()))
+        {
+            event.rerouteTo(RegisterView.class);
+        }
+        else if (!LoginView.class.equals(event.getNavigationTarget()) && !SecurityUtils.isUserLoggedIn()) {
             event.rerouteTo(LoginView.class);
         }
     }

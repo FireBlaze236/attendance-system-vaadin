@@ -1,4 +1,4 @@
-package com.packagename.prototype1.security;
+package com.packagename.prototype1.backend.security;
 
 import com.vaadin.flow.server.ServletHelper.RequestType;
 import com.vaadin.flow.shared.ApplicationConstants;

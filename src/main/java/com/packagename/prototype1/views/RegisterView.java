@@ -44,6 +44,14 @@ public class RegisterView extends VerticalLayout {
         submitButton.addClickShortcut(Key.ENTER);
         submitButton.addClickListener(submitClicked ->
         {
+            usernameField.setInvalid(false);
+            //Multiple users cannot have the same username
+            if(userRepository.findByUsername(usernameField.getValue()).isPresent())
+            {
+                usernameField.setErrorMessage("Username taken");
+                usernameField.setInvalid(true);
+                return;
+            }
             if(passwordField.getValue().equals(confirmPasswordField.getValue())) {
                 UserData newUserData = new UserData( userRepository.count()+1);
                 newUserData.setUsername(usernameField.getValue());

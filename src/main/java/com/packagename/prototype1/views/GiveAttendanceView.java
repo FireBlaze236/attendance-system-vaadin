@@ -12,6 +12,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -68,8 +69,12 @@ public class GiveAttendanceView extends VerticalLayout {
                 attendanceData.setStudentName(studentName);
                 attendanceData.setSessionData(sessionData);
 
+                //user who gave the attendance
                 String current_user = SecurityContextHolder.getContext().getAuthentication().getName();
                 attendanceData.setUsername(current_user);
+                //user's ip address
+                String current_user_ip = VaadinSession.getCurrent().getBrowser().getAddress();
+                attendanceData.setUserIp(current_user_ip);
 
                 if(attendanceDataRepository.findByUsername(current_user).isPresent())
                 {
@@ -80,7 +85,7 @@ public class GiveAttendanceView extends VerticalLayout {
 
                 attendanceDataRepository.save(attendanceData);
                 //Notfiy the user
-                Notification notification = new Notification("Attendance recorded!", 2000, Notification.Position.TOP_CENTER);
+                Notification notification = new Notification("Attendance recorded!", 1500, Notification.Position.TOP_CENTER);
                 notification.open();
                 notification.addOpenedChangeListener(openedChangeEvent->
                 {

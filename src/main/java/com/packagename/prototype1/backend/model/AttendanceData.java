@@ -15,6 +15,8 @@ public class AttendanceData {
     @ManyToOne
     @JoinColumn(name = "session_code")
     private SessionData sessionData;
+    @Column(unique = true)
+    private String userIp;
 
     public Long getaId() {
         return aId;
@@ -54,5 +56,13 @@ public class AttendanceData {
 
     public void setSessionData(SessionData sessionData) {
         this.sessionData = sessionData;
+    }
+
+    public String getUserIp() {
+        return userIp;
+    }
+
+    public void setUserIp(String userIp) {
+        this.userIp = userIp;
     }
 }

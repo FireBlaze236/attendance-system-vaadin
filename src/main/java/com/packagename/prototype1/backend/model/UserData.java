@@ -8,6 +8,7 @@ public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String username;
     @Column(length = 2048)
     private String password;

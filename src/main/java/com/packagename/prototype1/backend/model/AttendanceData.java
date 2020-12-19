@@ -15,7 +15,6 @@ public class AttendanceData {
     @ManyToOne
     @JoinColumn(name = "session_code")
     private SessionData sessionData;
-    @Column(unique = true)
     private String userIp;
 
     public Long getaId() {

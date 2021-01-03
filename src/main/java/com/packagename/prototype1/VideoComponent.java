@@ -8,14 +8,12 @@ import com.vaadin.flow.dom.Element;
 public class VideoComponent extends Component {
     Element videoElement = new Element("video");
     Element canvasElement = new Element("canvas");
-    Element imageElement = new Element("img");
 
     public VideoComponent() {
         videoElement.setProperty("autoplay", true);
         getElement().appendChild(
             videoElement,
-            canvasElement,
-            imageElement
+            canvasElement
         );
     }
 }

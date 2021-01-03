@@ -15,10 +15,10 @@ public class CameraTestView extends VerticalLayout {
     private VideoComponent vComponent = new VideoComponent();
     public CameraTestView() {
         /* 
-         * JavaScript Snippets:
-         * jsinit = initializes media device and resizes canvas
-         * jstakepic = retrieves image data url from canvas
-         * $0 = video element, $1 = canvas element
+         * $0 = video element
+         * $1 = canvas element
+         * $2 = div element
+         * $3 = timeout
          */
         String jsinit = "if (navigator.mediaDevices.getUserMedia) { " +
         "	navigator.mediaDevices.getUserMedia({ video: true })" +
@@ -27,31 +27,39 @@ public class CameraTestView extends VerticalLayout {
         "$0.addEventListener('canplay', function(ev) {" +
         "$1.setAttribute('width', $0.videoWidth);" +
         "$1.setAttribute('height', $0.videoHeight);" +
-        "}, false);";
-        String jstakepic = "var context = $1.getContext('2d');" +
+        "}, false);" +
+        "const snap = new Event('snapshot');" +
+        "function takepic() {" +
+        "var context = $1.getContext('2d');" +
         "context.drawImage($0, 0, 0, $1.width, $1.height);" +
-        "return $1.toDataURL('image/png');";
+        "$2.dispatchEvent(snap);" +
+        "}" +
+        "setInterval(takepic, $3);";
+
+        String jstakepic = "return $0.toDataURL();";
         
         add(cameraButton);
+        Integer timeoutDurationms = 6000;
         cameraButton.addClickListener(cl -> {
             add(snapButton);
             add(vComponent);
             UI.getCurrent().getPage().executeJs(
                 jsinit,
                 vComponent.getElement().getChild(0),
-                vComponent.getElement().getChild(1)
+                vComponent.getElement().getChild(1),
+                vComponent.getElement(),
+                timeoutDurationms
             );
         });
 
-        snapButton.addClickListener(c -> {
+        vComponent.addSnapshotListener(cl -> {
             PendingJavaScriptResult res = UI.getCurrent().getPage().executeJs(
                 jstakepic,
-                vComponent.getElement().getChild(0),
                 vComponent.getElement().getChild(1)
             );
             res.then(String.class, dataURL -> {
-                Image snappedImage = new Image(dataURL, "snapshot");
-                add(snappedImage);
+                Image img = new Image(dataURL, "snapshot");
+                add(img);
             });
         });
     }

@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface AttendanceDataRepository extends JpaRepository<AttendanceData, Long> {
     List<AttendanceData> findBySessionData(SessionData sessionData);
-    Optional<AttendanceData> findByUsername(String username);
+    //Optional<AttendanceData> findByUsername(String username);
+    Optional<AttendanceData> findByUsernameAndSessionData(String username, SessionData sessionData);
 }

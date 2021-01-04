@@ -16,6 +16,7 @@ public class AttendanceData {
     @JoinColumn(name = "session_code")
     private SessionData sessionData;
     private String userIp;
+    private Integer score;
 
     public Long getaId() {
         return aId;
@@ -63,5 +64,13 @@ public class AttendanceData {
 
     public void setUserIp(String userIp) {
         this.userIp = userIp;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

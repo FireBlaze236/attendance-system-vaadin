@@ -75,7 +75,7 @@ public class FaceRecognizerModule {
     }
 
     public static void take_in_Vector(String str,int id, int count) throws IOException {
-
+        count = 0;
         OpenCV.loadLocally();
         CascadeClassifier faceDetector = new CascadeClassifier("haarcascade_frontalface_alt.xml");
 
@@ -87,6 +87,10 @@ public class FaceRecognizerModule {
         MatOfRect faceDetections = new MatOfRect();
         faceDetector.detectMultiScale(imgFrame, faceDetections);
 
+        if (faceDetections.toList().isEmpty()) {
+            System.out.println("Training failed. No faces.");
+            return;
+        }
         for (Rect rect : faceDetections.toArray()) {
             rectangle(imgFrame, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
                     new Scalar(0, 0, 0));

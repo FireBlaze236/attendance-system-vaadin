@@ -119,7 +119,7 @@ public class GiveAttendanceView extends VerticalLayout {
                 
                 Optional<AttendanceData> ad = attendanceDataRepository.findByUsernameAndSessionData(current_user, sessionData);
 
-                if(ad.isEmpty())
+                if(!ad.isPresent())
                 {
                     // add
                     attendanceData.setStudentId(studentId);

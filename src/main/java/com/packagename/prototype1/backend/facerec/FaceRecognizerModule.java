@@ -28,6 +28,11 @@ public class FaceRecognizerModule {
     public static org.bytedeco.opencv.opencv_core.Mat labels = new org.bytedeco.opencv.opencv_core.Mat(1, 1, CV_32SC1);
     public static IntBuffer labelsBuf = labels.createBuffer();
     //My code
+    public static void init()
+    {
+        OpenCV.loadLocally();
+        faceRecognizer.read("mymodel.xml");
+    }
 
 
     public static int compareimage (String str) throws IOException {

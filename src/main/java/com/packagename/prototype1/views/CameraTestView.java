@@ -86,7 +86,16 @@ public class CameraTestView extends VerticalLayout {
                     e.printStackTrace();
                 }
                 System.out.println(level);
-                tm.setText( String.valueOf( userRepository.findById((long) level).get().getUsername() ));
+                //new code
+                if(level == -1 || !userRepository.findById((long)level).isPresent())
+                {
+                    tm.setText("Face not recognized");
+                }
+                else
+                {
+                    UserData user = userRepository.findById((long) level).get();
+                    tm.setText(user.getUsername());
+                }
             });
         });
 

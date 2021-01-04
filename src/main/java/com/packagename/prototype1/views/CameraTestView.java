@@ -19,10 +19,12 @@ import java.io.IOException;
 @Route("camera")
 public class CameraTestView extends VerticalLayout {
     private Button cameraButton = new Button("Access Camera");
-    private Button snapButton = new Button("Snap");
+    private Button snapButton = new Button("Predict");
+    private Button trainButton = new Button("Train");
     private VideoComponent vComponent = new VideoComponent();
+    private int id = 101;
+    private Text tm = new Text("Training Done");
 
-    FaceRecognizerModule fr = new FaceRecognizerModule();
     public CameraTestView() {
         /* 
          * JavaScript Snippets:
@@ -45,17 +47,20 @@ public class CameraTestView extends VerticalLayout {
         add(cameraButton);
         cameraButton.addClickListener(cl -> {
             add(snapButton);
+            add(trainButton);
             add(vComponent);
             UI.getCurrent().getPage().executeJs(
                 jsinit,
                 vComponent.getElement().getChild(0),
                 vComponent.getElement().getChild(1)
             );
-            fr.train();
+            //fr.train();
+            //System.out.println("Model Trained");
         });
 
 
         snapButton.addClickListener(c -> {
+            FaceRecognizerModule fr = new FaceRecognizerModule();
             PendingJavaScriptResult res = UI.getCurrent().getPage().executeJs(
                 jstakepic,
                 vComponent.getElement().getChild(0),
@@ -65,16 +70,38 @@ public class CameraTestView extends VerticalLayout {
                 Image snappedImage = new Image(dataURL, "snapshot");
                 //add (snappedImage);
                 String str = dataURL;
-                String level = null;
+                int level = -1;
                 try {
                     level = fr.compareimage (str);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 System.out.println(level);
-                Text tf = new Text(level);
+                Text tf = new Text(String.valueOf(level));
                 add (tf);
             });
+        });
+
+        trainButton.addClickListener(c -> {
+            FaceRecognizerModule fr = new FaceRecognizerModule();
+            for (int i = 0; i < 10; i++) {
+                PendingJavaScriptResult res = UI.getCurrent().getPage().executeJs(
+                        jstakepic,
+                        vComponent.getElement().getChild(0),
+                        vComponent.getElement().getChild(1)
+                );
+                int temp = i;
+                res.then(String.class, dataURL -> {
+                    String str = dataURL;
+                    try {
+                        fr.take_in_Vector(str, id, temp);
+                    } catch (IOException e) {
+
+                    }
+                });
+            }
+            id++;
+            add(tm);
         });
     }
 }

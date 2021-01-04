@@ -121,11 +121,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.github.sarxos</groupId>
-            <artifactId>webcam-capture</artifactId>
-            <version>0.3.12</version>
-        </dependency>
-        <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-testbench</artifactId>
             <scope>test</scope>
@@ -171,8 +166,11 @@
             <version>2.8.2</version>
             <scope>compile</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.3.0-3</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -62,13 +62,11 @@ public class GiveAttendanceView extends VerticalLayout {
             }
             if(LocalDateTime.now().isBefore(sessionData.getSessionEndTime().toLocalDateTime()) && LocalDateTime.now().isAfter(sessionData.getSessionStartTime().toLocalDateTime()))
             {
-
                 codeField.setInvalid(false);
                 AttendanceData attendanceData = new AttendanceData();
                 attendanceData.setStudentId(studentId);
                 attendanceData.setStudentName(studentName);
                 attendanceData.setSessionData(sessionData);
-
                 //user who gave the attendance
                 String current_user = SecurityContextHolder.getContext().getAuthentication().getName();
                 attendanceData.setUsername(current_user);

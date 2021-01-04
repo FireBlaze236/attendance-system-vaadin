@@ -187,17 +187,15 @@
                     <wait>500</wait>
                     <maxAttempts>240</maxAttempts>
                 </configuration>
-                <dependencies>
-                    <!-- The following enables the "thin jar" deployment option. -->
-                    <dependency>
-                        <groupId>org.springframework.boot.experimental</groupId>
-                        <artifactId>spring-boot-thin-layout</artifactId>
-                        <version>1.0.11.RELEASE</version>
-                    </dependency>
-                </dependencies>
+
 
             </plugin>
 
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.3</version>
+            </plugin>
 
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>

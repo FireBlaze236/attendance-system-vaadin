@@ -1,8 +1,10 @@
 package com.packagename.prototype1.views;
 
+import com.packagename.prototype1.FaceDetector;
 import com.packagename.prototype1.VideoComponent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.PendingJavaScriptResult;
@@ -10,15 +12,14 @@ import com.vaadin.flow.router.Route;
 
 @Route("camera")
 public class CameraTestView extends VerticalLayout {
-    private Button cameraButton = new Button("Access Camera");
-    private Button snapButton = new Button("Snap");
     private VideoComponent vComponent = new VideoComponent();
+    private FaceDetector fd = new FaceDetector();
     public CameraTestView() {
         /* 
-         * JavaScript Snippets:
-         * jsinit = initializes media device and resizes canvas
-         * jstakepic = retrieves image data url from canvas
-         * $0 = video element, $1 = canvas element
+         * $0 = video element
+         * $1 = canvas element
+         * $2 = div element
+         * $3 = timeout
          */
         String jsinit = "if (navigator.mediaDevices.getUserMedia) { " +
         "	navigator.mediaDevices.getUserMedia({ video: true })" +
@@ -27,32 +28,42 @@ public class CameraTestView extends VerticalLayout {
         "$0.addEventListener('canplay', function(ev) {" +
         "$1.setAttribute('width', $0.videoWidth);" +
         "$1.setAttribute('height', $0.videoHeight);" +
-        "}, false);";
-        String jstakepic = "var context = $1.getContext('2d');" +
+        "}, false);" +
+        "const snap = new Event('snapshot');" +
+        "function takepic() {" +
+        "var context = $1.getContext('2d');" +
         "context.drawImage($0, 0, 0, $1.width, $1.height);" +
-        "return $1.toDataURL('image/png');";
+        "$2.dispatchEvent(snap);" +
+        "}" +
+        "setInterval(takepic, $3);";
+
+        add(vComponent);
+        Integer timeoutDurationms = 2000;
         
-        add(cameraButton);
-        cameraButton.addClickListener(cl -> {
-            add(snapButton);
-            add(vComponent);
+        vComponent.addAttachListener(cl -> {
             UI.getCurrent().getPage().executeJs(
                 jsinit,
                 vComponent.getElement().getChild(0),
-                vComponent.getElement().getChild(1)
+                vComponent.getElement().getChild(1),
+                vComponent.getElement(),
+                timeoutDurationms
             );
         });
 
-        snapButton.addClickListener(c -> {
+        vComponent.addSnapshotListener(cl -> {
             PendingJavaScriptResult res = UI.getCurrent().getPage().executeJs(
-                jstakepic,
-                vComponent.getElement().getChild(0),
+                "return $0.toDataURL();",
                 vComponent.getElement().getChild(1)
             );
             res.then(String.class, dataURL -> {
-                Image snappedImage = new Image(dataURL, "snapshot");
-                add(snappedImage);
+                Image img = new Image(dataURL, "snapshot");
+                boolean faceExists = fd.detect(dataURL);
+                add(img);
+                if (faceExists) { add(new H1("face")); }
+                else { add(new H1("noface")); }
             });
         });
+
+        //vComponent.setVisible(false);
     }
 }

@@ -10,8 +10,6 @@ import com.vaadin.flow.router.Route;
 
 @Route("camera")
 public class CameraTestView extends VerticalLayout {
-    private Button cameraButton = new Button("Access Camera");
-    private Button snapButton = new Button("Snap");
     private VideoComponent vComponent = new VideoComponent();
     public CameraTestView() {
         /* 
@@ -38,11 +36,10 @@ public class CameraTestView extends VerticalLayout {
 
         String jstakepic = "return $0.toDataURL();";
         
-        add(cameraButton);
-        Integer timeoutDurationms = 6000;
-        cameraButton.addClickListener(cl -> {
-            add(snapButton);
-            add(vComponent);
+        add(vComponent);
+        Integer timeoutDurationms = 2000;
+        
+        vComponent.addAttachListener(cl -> {
             UI.getCurrent().getPage().executeJs(
                 jsinit,
                 vComponent.getElement().getChild(0),
@@ -62,5 +59,7 @@ public class CameraTestView extends VerticalLayout {
                 add(img);
             });
         });
+
+        //vComponent.setVisible(false);
     }
 }

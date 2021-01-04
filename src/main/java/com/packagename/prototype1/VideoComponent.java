@@ -22,6 +22,8 @@ public class VideoComponent extends Component {
 
     public VideoComponent() {
         videoElement.setProperty("autoplay", true);
+        canvasElement.getStyle().set("display", "none");
+        //getElement().getStyle().set("display", "none");
         getElement().appendChild(
             videoElement,
             canvasElement

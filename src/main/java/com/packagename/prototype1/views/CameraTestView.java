@@ -122,6 +122,7 @@ public class CameraTestView extends VerticalLayout {
                 int temp = i;
 
 
+                //STRING ARRAY use korbo
                 res.then(String.class, dataURL -> {
                     String str = dataURL;
                     try {

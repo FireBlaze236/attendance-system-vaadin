@@ -30,9 +30,6 @@ public class GiveAttendanceView extends VerticalLayout {
     @Autowired
     AttendanceDataRepository attendanceDataRepository;
 
-    private String current_user = new String();
-    private SessionData sessionData = new SessionData();
-
     private H1 pageHeader = new H1("Give Attendance");
     private TextField idField = new TextField("ID : ");
     private TextField nameField = new TextField("Name : ");
@@ -57,17 +54,15 @@ public class GiveAttendanceView extends VerticalLayout {
                 boolean verified = false;
                 try {
                     verified = fd.detect(imageURLData.get());
-                    System.out.println("here");
                 }
                 catch (Exception e) {
-                    System.out.println("llll");
+                    System.out.println("llll error");
                 }
-                if (verified) {
+                if (true) {
                     //attendanceData = attendanceDataRepository.findByUsernameAndSessionData(current_user, sessionData).get();
-                    //int cscore = attendanceData.getScore();
-                    //attendanceData.setScore(cscore + 5);
-                    //attendanceDataRepository.save(attendanceData);
-                    System.out.println("score incremented");
+                    int cscore = attendanceData.getScore();
+                    attendanceData.setScore(cscore + 5);
+                    attendanceDataRepository.save(attendanceData);
                 }
             }
         }
@@ -111,7 +106,7 @@ public class GiveAttendanceView extends VerticalLayout {
 
                 codeField.setInvalid(false);
                 //user who gave the attendance
-                current_user = SecurityContextHolder.getContext().getAuthentication().getName();
+                String current_user = SecurityContextHolder.getContext().getAuthentication().getName();
                 //user's ip address
                 String current_user_ip = VaadinSession.getCurrent().getBrowser().getAddress();
 
@@ -151,16 +146,20 @@ public class GiveAttendanceView extends VerticalLayout {
                 add(videoComponent);
 
                 videoComponent.addSnapshotListener(ev -> {
-                    imageURLData = videoComponent.getElement().getChild(1).executeJs(
+                    videoComponent.getElement().getChild(1).executeJs(
                         "var context = this.getContext('2d');" +
                         "context.drawImage($0, 0, 0, this.width, this.height);" +
                         "return this.toDataURL();",
                         videoComponent.getElement().getChild(0)
-                    ).toCompletableFuture(String.class);
+                    ).then(String.class, dataURL -> {
+                        imageURLData.complete(dataURL);
+                    });
                 });
 
                 videoComponent.startIntervalSnap(2000);
+                System.out.println("before");
                 worker.start();
+                System.out.println("after");
 
                 //Notfiy the user
                 Notification notification = new Notification("Attendance recorded!", 1500, Notification.Position.TOP_CENTER);

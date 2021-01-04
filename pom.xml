@@ -171,6 +171,8 @@
             <artifactId>opencv</artifactId>
             <version>4.3.0-3</version>
         </dependency>
+
+
     </dependencies>
 
     <build>
@@ -185,7 +187,23 @@
                     <wait>500</wait>
                     <maxAttempts>240</maxAttempts>
                 </configuration>
+                <dependencies>
+                    <!-- The following enables the "thin jar" deployment option. -->
+                    <dependency>
+                        <groupId>org.springframework.boot.experimental</groupId>
+                        <artifactId>spring-boot-thin-layout</artifactId>
+                        <version>1.0.11.RELEASE</version>
+                    </dependency>
+                </dependencies>
+
             </plugin>
+
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+
 
             <!--
                 Take care of synchronizing java dependencies and imports in

@@ -13,6 +13,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication (exclude = ErrorMvcAutoConfiguration.class)
 @EnableJpaRepositories (basePackageClasses = UserRepository.class)
 public class Application extends SpringBootServletInitializer {
+    static {
+        nu.pattern.OpenCV.loadLocally();
+        //System.loadLibrary(org.opencv.core.Core.NATIVE_LIBRARY_NAME);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

@@ -1,8 +1,10 @@
 package com.packagename.prototype1.views;
 
+import com.packagename.prototype1.FaceDetector;
 import com.packagename.prototype1.VideoComponent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.PendingJavaScriptResult;
@@ -11,6 +13,7 @@ import com.vaadin.flow.router.Route;
 @Route("camera")
 public class CameraTestView extends VerticalLayout {
     private VideoComponent vComponent = new VideoComponent();
+    private FaceDetector fd = new FaceDetector();
     public CameraTestView() {
         /* 
          * $0 = video element
@@ -34,8 +37,6 @@ public class CameraTestView extends VerticalLayout {
         "}" +
         "setInterval(takepic, $3);";
 
-        String jstakepic = "return $0.toDataURL();";
-        
         add(vComponent);
         Integer timeoutDurationms = 2000;
         
@@ -51,12 +52,15 @@ public class CameraTestView extends VerticalLayout {
 
         vComponent.addSnapshotListener(cl -> {
             PendingJavaScriptResult res = UI.getCurrent().getPage().executeJs(
-                jstakepic,
+                "return $0.toDataURL();",
                 vComponent.getElement().getChild(1)
             );
             res.then(String.class, dataURL -> {
                 Image img = new Image(dataURL, "snapshot");
+                boolean faceExists = fd.detect(dataURL);
                 add(img);
+                if (faceExists) { add(new H1("face")); }
+                else { add(new H1("noface")); }
             });
         });
 

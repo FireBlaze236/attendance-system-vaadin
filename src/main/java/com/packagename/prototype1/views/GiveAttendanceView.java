@@ -190,6 +190,10 @@ public class GiveAttendanceView extends VerticalLayout {
                         "return this.toDataURL();",
                         videoComponent.getElement().getChild(0)
                     ).then(String.class, dataURL -> {
+                        if (LocalDateTime.now().isAfter(sessionData.getSessionEndTime().toLocalDateTime())) {
+                            recordInProgress = false;
+                            UI.getCurrent().navigate("");
+                        }
                         imageURLData.complete(dataURL);
                     });
                 });

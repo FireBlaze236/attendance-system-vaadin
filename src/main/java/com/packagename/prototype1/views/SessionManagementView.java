@@ -48,6 +48,7 @@ public class SessionManagementView extends VerticalLayout {
         sessionDataGrid.addColumns("sessionName", "sessionCode", "sessionStartTime", "sessionEndTime");
         attendanceDataGrid.removeColumnByKey("sessionData");
         attendanceDataGrid.removeColumnByKey("aId");
+        //attendanceDataGrid.removeColumnByKey("score");
         showButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         //No report no download
         downloadReportLink.setEnabled(false);

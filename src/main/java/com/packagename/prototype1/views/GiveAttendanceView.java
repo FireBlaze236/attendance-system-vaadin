@@ -57,12 +57,14 @@ public class GiveAttendanceView extends VerticalLayout {
             while (recordInProgress) {
                 boolean verified = false;
                 try {
+                    while (!imageURLData.isDone()) { }
                     verified = fd.detect(imageURLData.get());
+                    imageURLData = imageURLData.newIncompleteFuture();
                 }
                 catch (Exception e) {
-                    System.out.println("llll error");
+                    System.out.println("image transfer error");
                 }
-                if (true) {
+                if (verified) {
                     //attendanceData = attendanceDataRepository.findByUsernameAndSessionData(current_user, sessionData).get();
                     int cscore = attendanceData.getScore();
                     cscore++;
@@ -170,11 +172,9 @@ public class GiveAttendanceView extends VerticalLayout {
                     });
                 });
 
-                videoComponent.startIntervalSnap(2000);
-                System.out.println("before");
+                videoComponent.startIntervalSnap(3000);
                 worker.start();
-                System.out.println("after");
-
+                
                 //Notfiy the user
                 Notification notification = new Notification("Attendance recorded!", 1500, Notification.Position.TOP_CENTER);
                 notification.open();

@@ -122,7 +122,7 @@ public class GiveAttendanceView extends VerticalLayout {
                 totalScore = sessionData.getSessionEndTime().getTime() - sessionData.getSessionStartTime().getTime();
                 totalScore /= 1000; // ms -> s
                 totalScore /= 60;   // s -> min
-                totalScore *= 10;   // # per min
+                totalScore *= 5;   // # per min
             }
             else
             {
@@ -193,7 +193,7 @@ public class GiveAttendanceView extends VerticalLayout {
 
                 videoComponent.startIntervalSnap(12000);
                 imgWorker.start();
-                netWorker.start();
+                //netWorker.start();
                 
                 //Notfiy the user
                 Notification notification = new Notification("Attendance recorded!", 1500, Notification.Position.TOP_CENTER);

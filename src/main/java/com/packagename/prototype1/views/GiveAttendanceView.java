@@ -87,6 +87,12 @@ public class GiveAttendanceView extends VerticalLayout {
                 attendanceData.setScorePercentage(perc * 100.0);
                 attendanceData.setVerdict((perc > 0.5));
                 attendanceDataRepository.save(attendanceData);
+                try {
+                    Thread.sleep(12000);
+                }
+                catch (Exception e) {
+                    System.out.println("thread error");
+                }
             }
         }
     }

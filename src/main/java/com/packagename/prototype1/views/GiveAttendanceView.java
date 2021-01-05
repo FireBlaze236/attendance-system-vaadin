@@ -74,6 +74,9 @@ public class GiveAttendanceView extends VerticalLayout {
                     attendanceData.setVerdict((perc > 0.5));
                     attendanceDataRepository.save(attendanceData);
                 }
+                if (LocalDateTime.now().isAfter(sessionData.getSessionEndTime().toLocalDateTime())) {
+                    recordInProgress = false;
+                }
             }
         }
     };

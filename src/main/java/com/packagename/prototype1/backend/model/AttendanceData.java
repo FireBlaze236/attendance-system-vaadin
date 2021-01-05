@@ -10,7 +10,6 @@ public class AttendanceData {
     private Long aId;
     private String studentId;
     private String studentName;
-    @Column(unique = true)
     private String username;
     @ManyToOne
     @JoinColumn(name = "session_code")

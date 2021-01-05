@@ -88,7 +88,7 @@ public class GiveAttendanceView extends VerticalLayout {
                 attendanceDataRepository.save(attendanceData);
             }
         }
-    }
+    };
 
     private boolean recordInProgress = false;
 

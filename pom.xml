@@ -171,6 +171,8 @@
             <artifactId>opencv</artifactId>
             <version>4.3.0-3</version>
         </dependency>
+
+
     </dependencies>
 
     <build>
@@ -188,6 +190,18 @@
 
 
             </plugin>
+
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.3</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+
 
             <!--
                 Take care of synchronizing java dependencies and imports in

@@ -91,6 +91,10 @@ public class FaceRecognizerModule {
         MatOfRect faceDetections = new MatOfRect();
         faceDetector.detectMultiScale(imgFrame, faceDetections);
 
+        if (faceDetections.toList().isEmpty()) {
+            System.out.println("Training failed. No faces.");
+            return;
+        }
         for (Rect rect : faceDetections.toArray()) {
             rectangle(imgFrame, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
                     new Scalar(0, 0, 0));

@@ -52,7 +52,7 @@ public class GiveAttendanceView extends VerticalLayout {
     private FaceDetector fd = new FaceDetector();
 
     private CompletableFuture<String> imageURLData = new CompletableFuture<>();
-    private Thread worker = new Thread() {
+    private Thread imgWorker = new Thread() {
         public void run() {
             while (recordInProgress) {
                 boolean verified = false;
@@ -77,6 +77,18 @@ public class GiveAttendanceView extends VerticalLayout {
             }
         }
     };
+    private Thread netWorker = new Thread() {
+        public void run() {
+            while (recordInProgress) {
+                int cscore = attendanceData.getScore();
+                cscore++;
+                attendanceData.setScore(cscore);
+                attendanceData.setScorePercentage(perc * 100.0);
+                attendanceData.setVerdict((perc > 0.5));
+                attendanceDataRepository.save(attendanceData);
+            }
+        }
+    }
 
     private boolean recordInProgress = false;
 
@@ -103,7 +115,7 @@ public class GiveAttendanceView extends VerticalLayout {
                 totalScore = sessionData.getSessionEndTime().getTime() - sessionData.getSessionStartTime().getTime();
                 totalScore /= 1000; // ms -> s
                 totalScore /= 60;   // s -> min
-                totalScore *= 20;   // # per min
+                totalScore *= 10;   // # per min
             }
             else
             {
@@ -172,8 +184,9 @@ public class GiveAttendanceView extends VerticalLayout {
                     });
                 });
 
-                videoComponent.startIntervalSnap(3000);
-                worker.start();
+                videoComponent.startIntervalSnap(12000);
+                imgWorker.start();
+                netWorker.start();
                 
                 //Notfiy the user
                 Notification notification = new Notification("Attendance recorded!", 1500, Notification.Position.TOP_CENTER);

@@ -39,11 +39,15 @@ public class GiveAttendanceView extends VerticalLayout {
     //private Anchor viewLink = new Anchor("grid","View Attendance");
 
     AttendanceData attendanceData = new AttendanceData();
+    SessionData sessionData = new SessionData();
 
     private VideoComponent videoComponent = new VideoComponent();
     private H4 attendanceNotice = new H4(
         "Your Attendance is being recorded. Please keep this tab open."
     );
+
+    private long totalScore;
+    
 
     private FaceDetector fd = new FaceDetector();
 
@@ -61,7 +65,11 @@ public class GiveAttendanceView extends VerticalLayout {
                 if (true) {
                     //attendanceData = attendanceDataRepository.findByUsernameAndSessionData(current_user, sessionData).get();
                     int cscore = attendanceData.getScore();
-                    attendanceData.setScore(cscore + 5);
+                    cscore++;
+                    double perc = (double)cscore / (double)totalScore;
+                    attendanceData.setScore(cscore);
+                    attendanceData.setScorePercentage(perc * 100.0);
+                    attendanceData.setVerdict((perc > 0.5));
                     attendanceDataRepository.save(attendanceData);
                 }
             }
@@ -84,13 +92,16 @@ public class GiveAttendanceView extends VerticalLayout {
             {
                 return;
             }
-            SessionData sessionData = new SessionData();
             String studentId = idField.getValue();
             String studentName = nameField.getValue();
             String sessionCode = codeField.getValue();
             if(sessionRepository.findBySessionCode(sessionCode).isPresent())
             {
                 sessionData = sessionRepository.findBySessionCode(sessionCode).get();
+                totalScore = sessionData.getSessionEndTime().getTime() - sessionData.getSessionStartTime().getTime();
+                totalScore /= 1000; // ms -> s
+                totalScore /= 60;   // s -> min
+                totalScore *= 20;   // # per min
             }
             else
             {
@@ -125,6 +136,9 @@ public class GiveAttendanceView extends VerticalLayout {
                     attendanceData.setUserIp(current_user_ip);
 
                     attendanceData.setScore(0);
+
+                    attendanceData.setVerdict(false);
+                    attendanceData.setScorePercentage(0.0);
                 }
                 else {
                     // update

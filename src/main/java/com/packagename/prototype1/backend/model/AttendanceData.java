@@ -17,6 +17,8 @@ public class AttendanceData {
     private SessionData sessionData;
     private String userIp;
     private Integer score;
+    private Double scorePercentage;
+    private Boolean verdict;
 
     public Long getaId() {
         return aId;
@@ -72,5 +74,21 @@ public class AttendanceData {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Double getScorePercentage() {
+        return scorePercentage;
+    }
+
+    public void setScorePercentage(Double scorePercentage) {
+        this.scorePercentage = scorePercentage;
+    }
+
+    public boolean getVerdict() {
+        return verdict;
+    }
+
+    public void setVerdict(boolean verdict) {
+        this.verdict = verdict;
     }
 }

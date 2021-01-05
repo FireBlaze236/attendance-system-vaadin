@@ -82,6 +82,7 @@ public class GiveAttendanceView extends VerticalLayout {
             while (recordInProgress) {
                 int cscore = attendanceData.getScore();
                 cscore++;
+                double perc = (double)cscore / (double)totalScore;
                 attendanceData.setScore(cscore);
                 attendanceData.setScorePercentage(perc * 100.0);
                 attendanceData.setVerdict((perc > 0.5));

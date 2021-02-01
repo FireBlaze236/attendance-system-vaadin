@@ -98,7 +98,7 @@ public class GiveAttendanceView extends VerticalLayout {
                 }
             }
         }
-    }
+    };
 
     private boolean recordInProgress = false;
 

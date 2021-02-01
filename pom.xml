@@ -61,8 +61,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv-platform</artifactId>
+            <version>1.5.4</version>
+        </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
@@ -117,11 +121,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.github.sarxos</groupId>
-            <artifactId>webcam-capture</artifactId>
-            <version>0.3.12</version>
-        </dependency>
-        <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-testbench</artifactId>
             <scope>test</scope>
@@ -172,7 +171,6 @@
             <artifactId>opencv</artifactId>
             <version>4.3.0-3</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -216,13 +214,6 @@
             <properties>
                 <vaadin.productionMode>true</vaadin.productionMode>
             </properties>
-
-            <dependencies>
-                <dependency>
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>flow-server-production-mode</artifactId>
-                </dependency>
-            </dependencies>
 
             <build>
                 <plugins>

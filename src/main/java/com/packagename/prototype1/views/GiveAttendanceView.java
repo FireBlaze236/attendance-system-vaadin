@@ -23,6 +23,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Vaadin View for providing attendance
+ */
 @Route("give")
 public class GiveAttendanceView extends VerticalLayout {
     @Autowired

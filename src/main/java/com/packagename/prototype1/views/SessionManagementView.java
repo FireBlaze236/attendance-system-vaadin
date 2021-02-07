@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
+/**
+ * Session reports and management view
+ */
 @Route("sessions")
 public class SessionManagementView extends VerticalLayout {
     @Autowired
@@ -86,6 +89,10 @@ public class SessionManagementView extends VerticalLayout {
 
     }
 
+    /**
+     * Utility to get input
+     * @return
+     */
     private InputStream getInputStream()
     {
         try{

@@ -10,11 +10,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Custom User Details service for use with Spring Security
+ */
 @Service
-
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
+
+    /**
+     * Function to find user from data repository and create a user details object for use with Spring Security
+     * @param userName
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         Optional<UserData> user = userRepository.findByUsername(userName);

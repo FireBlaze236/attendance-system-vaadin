@@ -71,6 +71,11 @@ public class VideoComponent extends Component {
         }
     }
     */
+
+    /**
+     * Start the interval snapping for taking pics in timed intervals
+     * @param timems
+     */
     public void startIntervalSnap(int timems) {
         if (intervalID == null) {
             UI.getCurrent().getPage().executeJs(
@@ -82,6 +87,10 @@ public class VideoComponent extends Component {
             ).then(Integer.class, id -> { intervalID = id; });
         }
     }
+
+    /**
+     * Stops the interval snapping
+     */
     public void stopIntervalSnap() {
         if (intervalID != null) {
             UI.getCurrent().getPage().executeJs(
@@ -91,10 +100,20 @@ public class VideoComponent extends Component {
             intervalID = null;
         }
     }
+
+    /**
+     * Take snap
+     */
     public void singleSnap() {
         UI.getCurrent().getPage().executeJs("const ev = new Event('snapshot'); $0.dispatchEvent(ev);", getElement());
         //fireEvent(new ImageSnapEvent(this, false));
     }
+
+    /**
+     * Check for taken snaps
+     * @param listener
+     * @return
+     */
     public Registration addSnapshotListener(ComponentEventListener<ImageSnapEvent> listener) {
         return addListener(ImageSnapEvent.class, listener);
     }

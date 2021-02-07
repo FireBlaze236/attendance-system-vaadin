@@ -2,6 +2,9 @@ package com.packagename.prototype1.backend.model;
 
 import javax.persistence.*;
 
+/**
+ * Attendance Data Model Class for Java Persistent API Entity
+ */
 @Entity
 public class AttendanceData {
 
@@ -10,7 +13,6 @@ public class AttendanceData {
     private Long aId;
     private String studentId;
     private String studentName;
-    @Column(unique = true)
     private String username;
     @ManyToOne
     @JoinColumn(name = "session_code")

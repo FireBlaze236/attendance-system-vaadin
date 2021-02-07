@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Session Data Model Class for Java Persistent API Entity
+ */
 @Entity
 public class SessionData {
     @Id

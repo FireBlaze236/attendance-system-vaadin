@@ -11,6 +11,9 @@ import com.vaadin.flow.router.Route;
 
 import java.util.Collections;
 
+/**
+ * Login page, Vaading view
+ */
 @Route("login")
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     private LoginForm loginForm = new LoginForm();
@@ -30,6 +33,10 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         add(new H1("Online Attendance System"), loginForm, registerLink);
     }
 
+    /**
+     * Special function for use with login form. Checks if user is logged in or password wrong etc.
+     * @param beforeEnterEvent
+     */
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         if(!beforeEnterEvent.getLocation()

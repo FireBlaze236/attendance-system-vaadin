@@ -20,6 +20,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Vaadin view for creating attendance sessions
+ */
 @Route("createsession")
 public class SessionCreationView extends VerticalLayout {
     @Autowired

@@ -10,6 +10,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.PendingJavaScriptResult;
 import com.vaadin.flow.router.Route;
 
+/**
+ * Test View for use with camera
+ */
 @Route("camera")
 public class CameraTestView extends VerticalLayout {
     private VideoComponent vComponent = new VideoComponent();

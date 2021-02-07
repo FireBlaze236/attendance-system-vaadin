@@ -105,6 +105,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/h2-console/**");
     }
 
+    /**
+     * Bean for use with Password encoding
+     * @return
+     */
     @Bean
     public BCryptPasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder(10);

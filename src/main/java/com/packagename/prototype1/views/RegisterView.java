@@ -2,6 +2,7 @@ package com.packagename.prototype1.views;
 
 import com.packagename.prototype1.backend.model.UserData;
 import com.packagename.prototype1.backend.repository.UserRepository;
+import com.packagename.prototype1.backend.security.SecurityUtils;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -16,6 +17,9 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Registration form
+ */
 @Route("register")
 public class RegisterView extends VerticalLayout {
     @Autowired

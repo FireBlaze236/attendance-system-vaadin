@@ -8,6 +8,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+/**
+ * Main Dashboard vaadin view
+ */
 @Route("")
 public class MainView extends VerticalLayout {
 

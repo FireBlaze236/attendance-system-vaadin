@@ -10,6 +10,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Custom User Details object
+ */
 public class MyUserDetails implements UserDetails {
 
     private String username;
@@ -20,6 +23,11 @@ public class MyUserDetails implements UserDetails {
     public MyUserDetails()
     {
     }
+
+    /**
+     * Create user details for use with Spring Security
+     * @param userData
+     */
     public MyUserDetails(UserData userData)
     {
         this.username = userData.getUsername();

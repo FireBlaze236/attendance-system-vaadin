@@ -29,6 +29,10 @@ public final class SecurityUtils {
                 && Stream.of(RequestType.values()).anyMatch(r -> r.getIdentifier().equals(parameterValue));
     }
 
+    /**
+     * Check if user is logged in
+     * @return
+     */
     static boolean isUserLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null

@@ -29,7 +29,7 @@ public class FaceDetector {
     /**
      * Checks if there are any faces from the dataURL
      * @param dataURL
-     * @return
+     * @return true if face detected
      */
     public boolean detect(String dataURL) {
         setFrame(dataURL);

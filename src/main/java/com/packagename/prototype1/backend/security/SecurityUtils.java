@@ -9,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
 
+/**
+ * Utility class for use with Spring Security
+ */
 public final class SecurityUtils {
 
     private SecurityUtils() {

@@ -8,9 +8,16 @@ import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * Configuration class for Vaadin Services
+ */
 @Component
 public class ConfigureUIServiceInitListener implements VaadinServiceInitListener {
 
+    /**
+     * Add the before enter listener to each UI view
+     * @param event
+     */
     @Override
     public void serviceInit(ServiceInitEvent event) {
         event.getSource().addUIInitListener(uiEvent -> {

@@ -24,14 +24,14 @@ public interface SessionRepository extends JpaRepository<SessionData, String> {
     /**
      * Template function for finding Session Data by session name, created by Spring Data JPA
      * @param sessionName
-     * @return
+     * @return optional of session data
      */
     Optional<SessionData> findBySessionName(String sessionName);
 
     /**
      * Template function for finding Session Data by owner user, created by Spring Data JPA
      * @param ownerUser
-     * @return
+     * @return List of session data
      */
     List<SessionData> findByOwnerUser(String ownerUser);
 }

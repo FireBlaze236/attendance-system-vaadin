@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 
+/**
+ * Web security configuration class for Spring Security custom implementation
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -106,7 +109,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Bean for use with Password encoding
+     * Bean for use with Password encoding. Uses BCrypt.
      * @return
      */
     @Bean

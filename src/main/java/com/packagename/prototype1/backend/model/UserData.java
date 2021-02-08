@@ -29,7 +29,7 @@ public class UserData {
 
     /**
      * Constructor for generating user with custom id
-     * @param id
+     * @param id custom UserID
      */
     public UserData(Long id)
     {

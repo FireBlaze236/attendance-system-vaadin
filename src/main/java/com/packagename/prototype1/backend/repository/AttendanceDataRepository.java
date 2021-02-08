@@ -16,7 +16,7 @@ public interface AttendanceDataRepository extends JpaRepository<AttendanceData, 
     /**
      * Template function for finding Attendance Data by Session Data, created by Spring Data JPA
      * @param sessionData
-     * @return
+     * @return List<AttendanceData>
      */
     List<AttendanceData> findBySessionData(SessionData sessionData);
     //Optional<AttendanceData> findByUsername(String username);
@@ -25,7 +25,7 @@ public interface AttendanceDataRepository extends JpaRepository<AttendanceData, 
      * Template function for finding Attendance Data by Session Data, Username , created by Spring Data JPA
      * @param username
      * @param sessionData
-     * @return
+     * @return Optional<AttendanceData>
      */
     Optional<AttendanceData> findByUsernameAndSessionData(String username, SessionData sessionData);
 }

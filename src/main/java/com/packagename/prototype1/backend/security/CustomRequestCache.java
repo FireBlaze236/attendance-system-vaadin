@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * Custom Http request handler to handle internal requests
+ */
 class CustomRequestCache extends HttpSessionRequestCache {
 
     /**

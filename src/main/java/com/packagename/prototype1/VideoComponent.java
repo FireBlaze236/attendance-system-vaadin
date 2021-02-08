@@ -74,7 +74,7 @@ public class VideoComponent extends Component {
 
     /**
      * Start the interval snapping for taking pics in timed intervals
-     * @param timems
+     * @param timems time in ms
      */
     public void startIntervalSnap(int timems) {
         if (intervalID == null) {

@@ -1,0 +1,5 @@
+com.packagename.prototype1
+com.packagename.prototype1.backend.model
+com.packagename.prototype1.backend.repository
+com.packagename.prototype1.backend.security
+com.packagename.prototype1.views
